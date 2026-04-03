@@ -5,7 +5,7 @@
 -- ============================================================
 USE Lab5;
 
--- ── Q1: Top 3 clients per warehouse (by total PO value) ──────
+--Q1: Top 3 clients per warehouse (by total PO value)
 WITH ClientWarehouseBusiness AS (
     SELECT
         stw.WID,
@@ -33,7 +33,7 @@ WHERE (
 ORDER BY cwb.WID, cwb.TotalBusiness DESC;
 
 
--- ── Q2: Singapore vs Los Angeles total business ───────────────
+-- Q2: Singapore vs Los Angeles total business
 WITH Totals AS (
     SELECT
         (
@@ -64,7 +64,7 @@ FROM Totals
 WHERE Singapore_Total <= LosAngeles_Total;
 
 
--- ── Q3: Top 3 months by PO count (last 2 years) ──────────────
+--Q3: Top 3 months by PO count (last 2 years)
 WITH MonthlyCount AS (
     SELECT
         YEAR(OrderDate)  AS [Year],
@@ -84,7 +84,7 @@ WHERE (
 ORDER BY PO_Count DESC;
 
 
--- ── Q4: Average time from order to warehouse delivery (months) ─
+-- Q4: Average time from order to warehouse delivery (months)
 SELECT
     AVG(
         CAST(DATEDIFF(DAY, po.OrderDate, d.DelDate) AS FLOAT)
@@ -95,7 +95,7 @@ JOIN Shipment  s ON po.OID         = s.OID
 JOIN Delivery  d ON d.Shipment_ID  = s.Shipment_ID;
 
 
--- ── Q5: Suppliers that ship only to Singapore ─────────────────
+--Q5: Suppliers that ship only to Singapore
 SELECT
     s.Supplier_ID,
     s.Name    AS SupplierName,
@@ -118,7 +118,7 @@ WHERE
     );
 
 
--- ── Q6: Suppliers not in Thailand AND shipped all Singapore products ──
+--Q6: Suppliers not in Thailand AND shipped all Singapore products
 SELECT
     s.Supplier_ID,
     s.Name    AS SupplierName,
@@ -150,7 +150,7 @@ WHERE
     );
 
 
--- ── Q7: Departure locations with the most delayed shipments ───
+--Q7: Departure locations with the most delayed shipments
 SELECT
     OGLocation       AS DepartureLocation,
     COUNT(*)         AS DelayCount
