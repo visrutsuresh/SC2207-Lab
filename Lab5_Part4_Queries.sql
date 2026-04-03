@@ -86,10 +86,10 @@ ORDER BY PO_Count DESC;
 
 -- Q4: Average time from order to warehouse delivery (months)
 SELECT
-    AVG(
+    ROUND(AVG(
         CAST(DATEDIFF(DAY, po.OrderDate, d.DelDate) AS FLOAT)
         / 30.44
-    ) AS Avg_Months_Order_To_Delivery
+    ), 2) AS Avg_Months_Order_To_Delivery
 FROM PurchaseOrder po
 JOIN Shipment  s ON po.OID         = s.OID
 JOIN Delivery  d ON d.Shipment_ID  = s.Shipment_ID;
